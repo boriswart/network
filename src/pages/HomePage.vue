@@ -1,9 +1,9 @@
 <template>
   <div class="home col-8 d-flex flex-wrap align-items-center justify-content-center">
-    <div class="col-12 justify-content-center d-flex">
-      <i class="fa fa-angle-left" aria-hidden="true"> </i>
-      {{ page }}
-      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    <div class="col-12 justify-content-center  align-items-center d-flex">
+      <i class="fa fa-angle-left" @click="state.getPreviusPosts()" v-if="state.isLeft" aria-hidden="true"></i>
+      {{ state.page }}
+      <i class="fa fa-angle-right" @click="state.getNextPosts()" v-if="state.isRight" aria-hidden="true"></i>
     </div>
     <div v-for="(post,i) in posts" :key="i" class="col-4 d-flex my-3  flex-wrap">
       <div class="col-md-12 mb-4 m-auto shadow card my-5">
@@ -79,7 +79,13 @@ export default {
       posts: onMounted(() => postsService.getPosts()),
       ads: onMounted(() => adsService.getAds()),
       isLeft: computed(() => AppState.isLeft),
-      isRight: computed(() => AppState.isRight)
+      isRight: computed(() => AppState.isRight),
+      getNextPosts() {
+        postsService.getNextPosts()
+      },
+      getPreviousPosts() {
+        postsService.getPreviousPosts()
+      }
     })
     return {
       state,
