@@ -1,8 +1,18 @@
 <template>
   <div class="home col-12 d-flex flex-wrap align-items-center justify-content-center">
-    <div v-for="(post,i) in posts" :key="i" class="col-12 d-flex my-3  flex-wrap">
-      <div class="col-md-4 mb-4 m-auto shadow card my-5">
-        <img :src="post.creator.picture" class="col-4 card-img-top rounded-pill p-2" alt="porterImage">
+    <div v-for="(post,i) in posts" :key="i" class="col-4 d-flex my-3  flex-wrap">
+      <div class="col-md-12 mb-4 m-auto shadow card my-5">
+        <div class="col-md-12 mb-4 m-auto my-5">
+          <img
+            :src="post.imgUrl"
+            class="col-12 card-img-top p-2 absolute"
+            alt="posterImage"
+          />
+          <!--  <img :src="post.creator.coverImg" class="col-12 card-img-top" alt="porterImage"> -->
+          <img :src="post.creator.picture"
+               class="col-4 card-img-top rounded-pill p-2 absolute"
+          />
+        </div>
         <div class="card-body">
           <p class="card-text">
             {{ post.body }}

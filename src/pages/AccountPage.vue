@@ -7,17 +7,27 @@
 </template>
 
 <script>
-import { computed } from 'vue'
 import { AppState } from '../AppState'
+import { reactive, computed } from '@vue/runtime-core'
+
+export default {
+  name: 'Account',
+  errors: [],
+  setup() {
+    const state = reactive({})
+    return {
+      state,
+      account: computed(() => AppState.account)
+    }
+  }
+}
+
+</script>
 export default {
   name: 'Account',
   setup() {
     return {
       account: computed(() => AppState.account)
-    }
-  }
-}
-</script>
 
 <style scoped>
 img {
