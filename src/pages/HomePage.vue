@@ -1,7 +1,7 @@
 <template>
   <div class="home col-8 d-flex flex-wrap align-items-center justify-content-center">
     <div class="col-12 justify-content-center  align-items-center d-flex">
-      <i class="fa fa-angle-left" @click="state.getPreviusPosts()" v-if="state.isLeft" aria-hidden="true"></i>
+      <i class="fa fa-angle-left" @click="state.getPreviousPosts()" v-if="state.isLeft" aria-hidden="true"></i>
       {{ state.page }}
       <i class="fa fa-angle-right" @click="state.getNextPosts()" v-if="state.isRight" aria-hidden="true"></i>
     </div>
@@ -20,6 +20,7 @@
           <img
             :src="post.creator.picture"
             class="col-4 card-img-top rounded-pill p-1"
+            @click="state.getCreatorProfile(creator.id)"
           />
         </div>
         <div class="card-body">
@@ -32,11 +33,11 @@
     </div>
   </div>
   <!--      Ads area... Ads display here   ....                      -->
-  <div v-if="state.adverts" class="col-12 text-left align-items-center border-2 justify-content-center">
+  <div v-if="state.adverts" class="col-4 text-left align-items-center border-2 justify-content-center">
     <h4 class="ml-4">
       Sponsors:
     </h4>
-    <div v-for="(ad,i) in ads" :key="i" class="col-4 my-2">
+    <div v-for="(ad,i) in ads" :key="i" class="col-12 my-2">
       <div class="col-md-12 mb-4 m-auto shadow card my-5">
         <div class="col-md-12 mb-4 m-auto my-5">
           <h3>
@@ -67,6 +68,7 @@
 <script>
 import { onMounted, reactive, computed } from '@vue/runtime-core'
 import { postsService } from '../services/PostsService.js'
+import { profilesService } from '../services/ProfilesService.js'
 import { adsService } from '../services/AdsService.js'
 import { AppState } from '../AppState'
 // import { logger } from '../utils/Logger'
@@ -80,6 +82,9 @@ export default {
       ads: onMounted(() => adsService.getAds()),
       isLeft: computed(() => AppState.isLeft),
       isRight: computed(() => AppState.isRight),
+      getCreatorProfile(id) {
+        profilesService.getCreatorProfile(id)
+      },
       getNextPosts() {
         postsService.getNextPosts()
       },
