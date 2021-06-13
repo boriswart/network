@@ -1,27 +1,23 @@
 <template>
-  <div class="col-md-6profile text-left sidebar">
+  <div class="col-md-3 profile text-left sidebar">
     <img :src="account.coverImg" class="d-flex pl-5 pt-3  rounded" />
-    <h4>Welcome to Profile View</h4>
-    <p>{{ profile }}</p>
-
-    <!-- <img class="rounded" :src="profile.picture" alt="nofindy" /> -->
-    <!-- <p>{{ profile.email }}</p> -->
-    <!-- <p>{{ profile.bio }}</p> -->
-    <!-- <p>Id: {{ profile.id }}</p> -->
+    <h6>Welcome to {{ state.profile.name }}Profile View</h6>
+    <img :src="state.profile.picture" />
+    <p>{{ state.profile.name }}</p>
+    <p>Email: {{ state.profile.email }} </p>
     <div class="row">
       <div class="col-12">
       </div>
       <!-- <p>{{ account }}</p> -->
     </div>
   </div>
-  <div class="col-md-6 profile text-center">
-    <h1>Welcome to profile posts:</h1>
+  <div class="profile col-md-9 text-center">
+    <h1>Welcome to {{ state.profile.name }} profile posts:</h1>
     <div class="row">
       <div class="col-12 d-flex flex-wrap">
-        <profile>
-        </profile>
+        <PostsComponents>
+        </PostsComponents>
       </div>
-      <!-- <p>{{ account }}</p> -->
     </div>
   </div>
 </template>
