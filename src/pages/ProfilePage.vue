@@ -2,7 +2,7 @@
   <div class="col-md-3 profile text-left sidebar">
     <img :src="account.coverImg" class="d-flex pl-5 pt-3  rounded" />
     <h6>Welcome to {{ state.profile.name }}Profile View</h6>
-    <img :src="state.profile.picture" />
+    <img :src="state.profile.picture" class="img-fluid" />
     <p>{{ state.profile.name }}</p>
     <p>Email: {{ state.profile.email }} </p>
     <div class="row">
