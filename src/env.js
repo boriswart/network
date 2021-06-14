@@ -1,4 +1,4 @@
-export const dev = window.location.origin.includes('localhost')
+export const dev = window.location.origin.includes('localhost:8080')
 export const baseURL = dev ? 'https://bcw-sandbox.herokuapp.com' : ''
 export const domain = 'codeworksclassroom.auth0.com'
 export const audience = 'https://codeworksclassroom.com'

@@ -1,20 +1,26 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { authGuard } from '@bcwdev/auth0provider-client'
+import { AppState } from '../src/AppState.js'
 
 function loadPage(page) {
   return () => import(`./pages/${page}.vue`)
+}
+function isProfilePost(trueFalse) {
+  AppState.isProfilePost = trueFalse
 }
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: loadPage('HomePage')
+    component: loadPage('HomePage'),
+    beforeEnter: isProfilePost(false)
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: loadPage('ProfilePage')
+    component: loadPage('ProfilePage'),
+    beforeEnter: isProfilePost(true)
   },
   {
     path: '/about',

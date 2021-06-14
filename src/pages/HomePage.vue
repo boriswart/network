@@ -1,8 +1,12 @@
 <template>
   <div class="col-12 d-flex">
     <!--      Posts area..Posts display here   --->
-    <PostsComponents>
-    </PostsComponents>
+    <div class="row">
+      <div class="col-12">
+        <PostsComponents>
+        </PostsComponents>
+      </div>
+    </div>
     <!--      Ads area... Ads display here   ...-->
     <AdsComponents>
     </AdsComponents>
@@ -15,7 +19,7 @@ import { postsService } from '../services/PostsService.js'
 import { profilesService } from '../services/ProfilesService.js'
 import { adsService } from '../services/AdsService.js'
 import { AppState } from '../AppState'
-// import { logger } from '../utils/Logger'
+import { router } from '../router.js'
 
 export default {
   setup() {
@@ -26,8 +30,11 @@ export default {
       ads: onMounted(() => adsService.getAds()),
       isLeft: computed(() => AppState.isLeft),
       isRight: computed(() => AppState.isRight),
-      getCreatorProfile(id) {
+
+      async getCreatorProfile(id) {
+        await router.push('ProfilePage')
         profilesService.getCreatorProfile(id)
+        await router.push('ProfilePage')
       },
       getNextPosts() {
         postsService.getNextPosts()

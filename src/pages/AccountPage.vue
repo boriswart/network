@@ -17,7 +17,7 @@
           <label for="img" id="imgUrl"></label>
           <input size="55" type="text" id="image" placeholder="url">
         </div>
-        <button @click="state.createPost(event)" class="btn btn-primary btn-small float-right" type="submit">
+        <button @click="state.createPost()" class="btn btn-primary btn-small float-right" type="submit">
           Post
         </button>
       </form>
@@ -34,15 +34,14 @@
 <script>
 import { AppState } from '../AppState'
 import { reactive, computed } from '@vue/runtime-core'
-import { postsService } from '../services/PostsService'
+import { postsService } from '../services/PostsService.js'
 
 export default {
-  name: 'Account',
   errors: [],
   setup() {
     const state = reactive({
       createPost(event) {
-        postsService.createPost(event)
+        postsService.createPost()
       }
     })
     return {

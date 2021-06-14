@@ -19,7 +19,7 @@
           />
           <img
             :src="post.creator.picture"
-            class="col-4 card-img-top rounded-pill p-1"
+            class="col-12 card-img-top rounded-pill p-1"
             @click="state.getCreatorProfile(post.creator.name)"
           />
         </div>
@@ -37,7 +37,6 @@
 import { onMounted, reactive, computed } from '@vue/runtime-core'
 import { postsService } from '../services/PostsService.js'
 import { profilesService } from '../services/ProfilesService.js'
-import { adsService } from '../services/AdsService.js'
 import { AppState } from '../AppState'
 // import { logger } from '../utils/Logger'
 
@@ -45,18 +44,33 @@ export default {
   setup() {
     const state = reactive({
       page: computed(() => AppState.page),
-      posts: onMounted(() => postsService.getPosts()),
-      ads: onMounted(() => adsService.getAds()),
+      isProfilePost: computed(() => AppState.isProfilePost),
       isLeft: computed(() => AppState.isLeft),
       isRight: computed(() => AppState.isRight),
-      getCreatorProfile(id) {
-        profilesService.getCreatorProfile(id)
+      getposts: onMounted(() => state.getPosts()),
+      getPosts(id) {
+        if (state.isProfilePost) {
+          profilesService.getCreatorProfile(id)
+        } else {
+          postsService.getPosts()
+        }
       },
       getNextPosts() {
-        postsService.getNextPosts()
+        if (state.isProfilePost) {
+          profilesService.getNextPosts()
+        } else {
+          postsService.getNextPosts()
+        }
       },
       getPreviousPosts() {
-        postsService.getPreviousPosts()
+        if (state.isProfilePost) {
+          profilesService.getPreviousPosts()
+        } else {
+          postsService.getPreviousPosts()
+        }
+      },
+      getCreatorProfile(id) {
+        profilesService.getCreatorProfile(id)
       }
     })
     return {

@@ -7,6 +7,7 @@ const url = 'https://bcw-sandbox.herokuapp.com'
 class PostsService {
   async getPosts() {
     try {
+      AppState.isProfilePost = false
       let res = null
       if (AppState.url !== '') {
         res = await api.get(AppState.url)
@@ -72,18 +73,12 @@ class PostsService {
   async createPost(event) {
     logger.log('logging event', event)
     // const body = 'Testing this awesome post .... Can you hear me out there?'
+    // const id = '60c11a2b1adc5b3a61a7e530'
+    // const imageUrl = 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382'
+    const newPost = { post: 'Testing this awesome post .... Can you hear me out there?', img: 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382' }
 
-    // const creatorId = 'auth0|60c278001128e7006a3705d7'
-
-    // let account
-    // const newPost =
-    // const imageUrl = 'https://tenor.com/view/horacio-arruda-courbe-tap-mic-dr-horacio-arruda-gif-16724382'
-
-    // const newPost = { body: body, imgUrl: imageUrl, creatorId: creatorId }
-
-    // const res = await api.post(url + '/api/posts', newPost)
-
-    // logger.log('new post', res.data)
+    const res = await api.post('http://bcw-sandbox.herokuapp.com/api/posts/', newPost)
+    logger.log('new post', res.data)
   }
 }
 export const postsService = new PostsService()

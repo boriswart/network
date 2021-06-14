@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-3 profile text-left sidebar">
-    <img :src="account.coverImg" class="d-flex pl-5 pt-3  rounded" />
+    <!-- <img :src="account.coverImg" class="d-flex pl-5 pt-3  rounded" /> -->
     <h6>Welcome to {{ state.profile.name }}Profile View</h6>
     <img :src="state.profile.picture" class="img-fluid" />
     <p>{{ state.profile.name }}</p>
@@ -25,38 +25,28 @@
 <script>
 
 import { AppState } from '../AppState'
-import { reactive, onMounted, computed } from '@vue/runtime-core'
+import { onMounted, reactive, computed } from '@vue/runtime-core'
 import { profilesService } from '../services/ProfilesService'
 
 export default {
-  name: 'Account',
+  name: 'Profile',
   errors: [],
   setup() {
     const state = reactive({
       profile: AppState.activeProfile,
-      // activeProfile: AppState.activeProfile,
-      profiles: onMounted(() => profilesService.getCreatorProfile()),
-      activeProfileService(id) {
-        profilesService.getCreatorProfile()
+      activeProfile: AppState.activeProfile,
+      profiles: onMounted(() => profilesService.getCreatorProfile(state.profile.name)),
+      activeProfileService() {
+        profilesService.getCreatorProfile(state.profile.name)
       }
     })
     return {
       state,
-      account: computed(() => AppState.account)
+      activeProfile: computed(() => AppState.activeProfile)
     }
   }
 }
 </script>
-export default {
-  name: 'Profile',
-  setup() {
-    return {
-      profile: computed(() => AppState.profile),
-      bio: computed(() =>     AppState.account.bio)
-    }
-  }
-
-}
 <style scoped>
 .sidebar{
  height: 100vh;
