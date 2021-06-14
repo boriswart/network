@@ -44,18 +44,14 @@ import { AppState } from '../AppState'
 
 export default {
   setup() {
+    onMounted(() => state.getPosts())
     const state = reactive({
       page: computed(() => AppState.page),
       isProfilePost: computed(() => AppState.isProfilePost),
       isLeft: computed(() => AppState.isLeft),
       isRight: computed(() => AppState.isRight),
-      getposts: onMounted(() => state.getPosts()),
-      getPosts(id) {
-        if (state.isProfilePost) {
-          profilesService.getCreatorProfile(id)
-        } else {
-          postsService.getPosts()
-        }
+      getPosts() {
+        postsService.getPosts()
       },
       getNextPosts() {
         if (state.isProfilePost) {

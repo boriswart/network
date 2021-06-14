@@ -13,5 +13,6 @@ export const AppState = reactive({
   user: {},
   account: {},
   ads: [],
-  url: ''
+  url: '',
+  queryBody: ''
 })

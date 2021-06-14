@@ -19,7 +19,6 @@ import { postsService } from '../services/PostsService.js'
 import { profilesService } from '../services/ProfilesService.js'
 import { adsService } from '../services/AdsService.js'
 import { AppState } from '../AppState'
-import { router } from '../router.js'
 
 export default {
   setup() {
@@ -32,9 +31,9 @@ export default {
       isRight: computed(() => AppState.isRight),
 
       async getCreatorProfile(id) {
-        await router.push('ProfilePage')
+        // await router.push('ProfilePage')
         profilesService.getCreatorProfile(id)
-        await router.push('ProfilePage')
+        // await router.push('ProfilePage')
       },
       getNextPosts() {
         postsService.getNextPosts()

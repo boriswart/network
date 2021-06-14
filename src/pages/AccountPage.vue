@@ -12,7 +12,7 @@
         <textarea rows="3" class="form-control" v-model="body"></textarea>
         <textarea row="1" class="form-control" v-model="URL"></textarea>
         <br>
-        <button @click="state.createPost()" class="btn btn-primary pull-right">
+        <button @click="state.createPost(URL)" class="btn btn-primary pull-right">
           Create a post
         </button>
       </div>

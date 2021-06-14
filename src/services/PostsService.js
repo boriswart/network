@@ -10,11 +10,12 @@ import { api } from './AxiosService'
 
 class PostsService {
   async getPosts() {
-    logger.log('Testing ')
+    // logger.log('Testing ')
     try {
       AppState.isProfilePost = false
       let res = null
-      if (AppState.url !== '') {
+      // logger.log('Check AppS.url', AppState.url)
+      if (AppState.url && AppState.url !== '') {
         res = await axios.get(AppState.url)
       } else {
         res = await api.get('/api/posts')
@@ -31,10 +32,14 @@ class PostsService {
     }
   }
 
+  async createSearch() {
+    logger.log('Searchin posts')
+  }
+
   async getNextPosts() {
     try {
       let res = null
-      if (AppState.url !== '') {
+      if (AppState.url && AppState.url !== '') {
         res = await api.get(AppState.url)
       } else {
         res = await api.get('/api/posts')
@@ -76,16 +81,16 @@ class PostsService {
   }
 
   async createPost(event) {
-    logger.log('logging event')
+    logger.log('logging', event)
     // const body = 'Testing this awesome post .... Can you hear me out there?'
     // const id = '60c11a2b1adc5b3a61a7e530'
     // const imageUrl = 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382'
-    const newPost = { body: 'Testing this awesome post .... Can you hear me out there?' }
+    // const newPost = { body: 'Testing this awesome post .... Can you hear me out there?' }
 
     //  , img: 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382' }
 
-    const res = await api.post('/api/posts/', newPost)
-    logger.log('new post', res.data)
+    // const res = await api.post('/api/posts/', newPost)
+    // logger.log('new post', res.data)
   }
 }
 export const postsService = new PostsService()

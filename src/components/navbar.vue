@@ -2,11 +2,6 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
       </div>
     </router-link>
 
@@ -40,6 +35,13 @@
           </router-link>
         </li> -->
       </ul>
+
+      <div class="inputForm d-flex">
+        <textarea rows="3" class="form-control m-2" v-model="body"></textarea>
+        <button @click="state.createSearch(body)" class="btn btn-outline-primary pull-right mx-4 pr-5">
+          search
+        </button>
+      </div>
 
       <span class="navbar-text">
         <button
@@ -90,10 +92,15 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import { postsService } from '../services/PostsService'
 export default {
   name: 'Navbar',
   setup() {
     const state = reactive({
+      body: computed(() => AppState.queryBody),
+      creatSearch(body) {
+        postsService.createSearch(body)
+      },
       dropOpen: false
     })
     return {

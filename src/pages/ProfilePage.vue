@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-3 profile text-left sidebar">
     <!-- <img :src="account.coverImg" class="d-flex pl-5 pt-3  rounded" /> -->
-    <h6>Welcome to {{ state.profile.name }}Profile View</h6>
-    <img :src="state.profile.picture" class="img-fluid" />
-    <p>{{ state.profile.name }}</p>
-    <p>Email: {{ state.profile.email }} </p>
+    <h6>Welcome to {{ activeProfile.name }} Profile View</h6>
+    <img :src="activeProfile.picture" class="img-fluid" />
+    <p>{{ activeProfile.name }}</p>
+    <p>Email: {{ activeProfile.email }} </p>
     <div class="row">
       <div class="col-12">
       </div>
@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="profile col-md-9 text-center">
-    <h1>Welcome to {{ state.profile.name }} profile posts:</h1>
+    <h1>Welcome to {{ activeProfile.name }} profile posts:</h1>
     <div class="row">
       <div class="col-12 d-flex flex-wrap">
         <PostsComponents>
@@ -30,7 +30,12 @@ import { profilesService } from '../services/ProfilesService'
 import { useRoute } from 'vue-router'
 
 export default {
-  name: 'Profile',
+  // props: {
+  //   post: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
   errors: [],
   setup() {
     // REVIEW Greglist-Vue & vue-flix
@@ -45,7 +50,7 @@ export default {
       profile: AppState.activeProfile,
       activeProfile: AppState.activeProfile,
       activeProfileService() {
-        profilesService.getCreatorProfile(state.profile.name)
+        profilesService.getCreatorProfile(state.profile.id)
       }
     })
     return {
