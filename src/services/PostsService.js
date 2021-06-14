@@ -4,6 +4,8 @@ import { api } from './AxiosService'
 // import { account } from '../AppState.js'
 
 const url = 'https://bcw-sandbox.herokuapp.com'
+// const url = 'http://localhost:8080'
+
 class PostsService {
   async getPosts() {
     try {
