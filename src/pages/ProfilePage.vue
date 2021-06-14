@@ -27,15 +27,23 @@
 import { AppState } from '../AppState'
 import { onMounted, reactive, computed } from '@vue/runtime-core'
 import { profilesService } from '../services/ProfilesService'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'Profile',
   errors: [],
   setup() {
+    // REVIEW Greglist-Vue & vue-flix
+    const route = useRoute()
+
+    onMounted(() => {
+      profilesService.getCreatorProfile(route.params.id)
+      // postsService.getPosts()
+    })
+
     const state = reactive({
       profile: AppState.activeProfile,
       activeProfile: AppState.activeProfile,
-      profiles: onMounted(() => profilesService.getCreatorProfile(state.profile.name)),
       activeProfileService() {
         profilesService.getCreatorProfile(state.profile.name)
       }

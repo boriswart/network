@@ -1,12 +1,12 @@
-// import { AppState } from '../AppState'
+import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-// import { api } from './AxiosService'
+import { api } from './AxiosService'
 
 class AccountService {
-  async getAccount(id) {
+  async getAccount() {
     try {
-      // const res = await api.get('/account/:id')
-      // AppState.account = res.data
+      const res = await api.get('/account/')
+      AppState.account = res.data
     } catch (err) {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }

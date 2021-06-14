@@ -17,11 +17,12 @@
                src="//placehold.it/300x200"
                class="col-12 img-fluid"
           />
-          <img
-            :src="post.creator.picture"
-            class="col-12 card-img-top rounded-pill p-1"
-            @click="state.getCreatorProfile(post.creator.name)"
-          />
+          <router-link :to="{name: 'Profile',params:{id:post.creator.id}}">
+            <img
+              :src="post.creator.picture"
+              class="col-12 card-img-top rounded-pill p-1"
+            />
+          </router-link>
         </div>
         <div class="card-body">
           <p class="card-text">
@@ -31,6 +32,7 @@
         </div>
       </div>
     </div>
+    <!-- @click="state.getCreatorProfile(post.creator.name)" -->
   </div>
 </template>
 <script>

@@ -1,20 +1,23 @@
+import axios from 'axios'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 // import { account } from '../AppState.js'
 
-const url = 'https://bcw-sandbox.herokuapp.com'
-// const url = 'http://localhost:8080'
+// const url = 'https://bcw-sandbox.herokuapp.com'
+
+// const url = 'https://localhost:8080'
 
 class PostsService {
   async getPosts() {
+    logger.log('Testing ')
     try {
       AppState.isProfilePost = false
       let res = null
       if (AppState.url !== '') {
-        res = await api.get(AppState.url)
+        res = await axios.get(AppState.url)
       } else {
-        res = await api.get(url + '/api/posts')
+        res = await api.get('/api/posts')
       }
       const initial = res.data.page.split(' of ')
       AppState.isRight = (!((initial[0] >= initial[1])))
@@ -34,7 +37,7 @@ class PostsService {
       if (AppState.url !== '') {
         res = await api.get(AppState.url)
       } else {
-        res = await api.get(url + '/api/posts')
+        res = await api.get('/api/posts')
       }
       AppState.url = res.data.older
       res = await api.get(res.data.older)
@@ -56,7 +59,7 @@ class PostsService {
       if (AppState.url !== '') {
         res = await api.get(AppState.url)
       } else {
-        res = await api.get(url + '/api/posts')
+        res = await api.get('/api/posts')
       }
       AppState.url = res.data.newer
       res = await api.get(res.data.newer)
@@ -73,13 +76,15 @@ class PostsService {
   }
 
   async createPost(event) {
-    logger.log('logging event', event)
+    logger.log('logging event')
     // const body = 'Testing this awesome post .... Can you hear me out there?'
     // const id = '60c11a2b1adc5b3a61a7e530'
     // const imageUrl = 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382'
-    const newPost = { post: 'Testing this awesome post .... Can you hear me out there?', img: 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382' }
+    const newPost = { body: 'Testing this awesome post .... Can you hear me out there?' }
 
-    const res = await api.post('http://bcw-sandbox.herokuapp.com/api/posts/', newPost)
+    //  , img: 'https://media1.tenor.com/images/37d0b3187cd0489cb08254d705aeeaad/tenor.gif?itemid=16724382' }
+
+    const res = await api.post('/api/posts/', newPost)
     logger.log('new post', res.data)
   }
 }
