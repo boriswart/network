@@ -14,5 +14,8 @@ export const AppState = reactive({
   account: {},
   ads: [],
   url: '',
-  queryBody: ''
+  currentQuery: '',
+  currentPage: 1,
+  currentPost: '',
+  currentPostUrl: ''
 })

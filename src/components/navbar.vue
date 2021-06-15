@@ -36,12 +36,21 @@
         </li> -->
       </ul>
 
-      <div class="inputForm d-flex">
-        <textarea rows="3" class="form-control m-2" v-model="body"></textarea>
-        <button @click="state.createSearch(body)" class="btn btn-outline-primary pull-right mx-4 pr-5">
-          search
-        </button>
-      </div>
+      <form @submit.prevent="createSearch">
+        <div class="d-flex w-100 mr-5 pr-5 align-items-center">
+          <input type="text" class="form-control" placeholder="search posts for..." v-model="state.query">
+          <button type="submit"
+                  class="btn"
+                  :disabled="!state.query "
+                  :class="{
+                    'btn-primary': state.query,
+                    'btn-danger': !state.query
+                  }"
+          >
+            Search
+          </button>
+        </div>
+      </form>
 
       <span class="navbar-text">
         <button
@@ -97,10 +106,7 @@ export default {
   name: 'Navbar',
   setup() {
     const state = reactive({
-      body: computed(() => AppState.queryBody),
-      creatSearch(body) {
-        postsService.createSearch(body)
-      },
+      query: '',
       dropOpen: false
     })
     return {
@@ -108,6 +114,12 @@ export default {
       user: computed(() => AppState.user),
       async login() {
         AuthService.loginWithPopup()
+      },
+      createSearch() {
+        AppState.currentPage = 1
+        AppState.currentQuery = state.query
+        postsService.createSearch()
+        state.query = ''
       },
       async logout() {
         AuthService.logout({ returnTo: window.location.origin })

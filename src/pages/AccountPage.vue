@@ -8,14 +8,22 @@
     <p>Id: {{ account.id }}</p>
 
     <div class="col-12 card p-3" id="post-form">
-      <div class="inputForm">
-        <textarea rows="3" class="form-control" v-model="body"></textarea>
-        <textarea row="1" class="form-control" v-model="URL"></textarea>
-        <br>
-        <button @click="state.createPost(URL)" class="btn btn-primary pull-right">
-          Create a post
-        </button>
-      </div>
+      <form @submit.prevent="createPost">
+        <div class="w-100 align-items-center">
+          <input type="text" class="form-control" placeholder="post.." v-model="state.post">
+          <input type="text" class="form-control" placeholder="postURL.." v-model="state.url">
+          <button type="submit"
+                  class="btn"
+                  :disabled="!state.post "
+                  :class="{
+                    'btn-primary': state.post,
+                    'btn-danger': !state.post
+                  }"
+          >
+            Post
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -29,13 +37,19 @@ export default {
   // errors: [],
   setup() {
     const state = reactive({
-      createPost(event) {
-        postsService.createPost()
-      }
+      post: '',
+      url: ''
     })
     return {
       state,
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      createPost() {
+        AppState.currentPost = state.post
+        AppState.currentPostUrl = state.url
+        postsService.createPost()
+        state.post = ''
+        state.url = ''
+      }
     }
   }
 }

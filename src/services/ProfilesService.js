@@ -44,7 +44,7 @@ class ProfilesService {
       AppState.posts = res.data.posts
       // logger.log(AppState.page, AppState.isLeft, AppState.isRight)
     } catch (err) {
-      logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
+      logger.error('problem in profilesService getPreviousPosts', err)
     }
   }
 
@@ -66,7 +66,7 @@ class ProfilesService {
       AppState.posts = res.data.posts
       // logger.log(AppState.page, AppState.isLeft, AppState.isRight)
     } catch (err) {
-      logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
+      logger.error('problem in profilesService getPrivious Posts', err)
     }
   }
 }
